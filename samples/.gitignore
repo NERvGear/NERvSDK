@@ -1,0 +1,12 @@
+# Folders
+
+/Release
+
+# VS files
+
+*.sdf
+*.suo
+
+# CB files
+
+*.layout

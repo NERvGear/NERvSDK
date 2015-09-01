@@ -1,0 +1,8 @@
+
+EXPORTS
+    DllGetInfo
+    DllRegisterModule
+    DllGetClassObject   PRIVATE
+    DllCanUnloadNow     PRIVATE
+    DllRegisterServer   PRIVATE
+    DllUnregisterServer PRIVATE

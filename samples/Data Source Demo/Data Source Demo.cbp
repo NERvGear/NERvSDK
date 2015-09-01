@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Data Source Demo" />
+		<Option pch_mode="2" />
+		<Option compiler="gnu_gcc_compiler_x64" />
+		<Build>
+			<Target title="win64">
+				<Option output="../Release/Data Source Demo/module64" imp_lib="lib/win64/Data Source Demo.a" def_file="lib/win64/Data Source Demo.def" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="lib/win64/" />
+				<Option object_output="obj/win64/" />
+				<Option type="3" />
+				<Option compiler="gnu_gcc_compiler_x64" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add directory="../../lib/win64" />
+				</Linker>
+			</Target>
+			<Target title="win32">
+				<Option output="../Release/Data Source Demo/module32" imp_lib="lib/win32/Data Source Demo.a" def_file="lib/win32/Data Source Demo.def" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="lib/win32/" />
+				<Option object_output="obj/win32/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-DNDEBUG" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add directory="../../lib/win32" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-fno-rtti" />
+			<Add option="-fno-exceptions" />
+			<Add option="-DUNICODE" />
+			<Add option="-DWINVER=0x0500" />
+			<Add directory="include" />
+			<Add directory="../../include" />
+		</Compiler>
+		<ResourceCompiler>
+			<Add directory="include" />
+			<Add directory="../../include" />
+		</ResourceCompiler>
+		<Linker>
+			<Add library="libNERvRES" />
+			<Add library="NERvSDK" />
+		</Linker>
+		<Unit filename="include/DataSourceDemo.h" />
+		<Unit filename="include/DemoData1.h" />
+		<Unit filename="include/DemoData2.h" />
+		<Unit filename="include/DemoDataSource.h" />
+		<Unit filename="include/defs.h" />
+		<Unit filename="res/res.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Unit filename="src/DataSourceDemo.cpp" />
+		<Unit filename="src/DemoData1.cpp" />
+		<Unit filename="src/DemoData2.cpp" />
+		<Unit filename="src/DemoDataSource.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<DoxyBlocks>
+				<comment_style block="2" line="1" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

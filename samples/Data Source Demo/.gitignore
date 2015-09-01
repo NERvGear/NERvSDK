@@ -1,0 +1,12 @@
+# Folders
+
+/obj
+
+# VS files
+
+*.user
+
+# CB files
+
+*.depend
+*.layout
