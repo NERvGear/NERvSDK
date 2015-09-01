@@ -1,4 +1,4 @@
-# NERvSDK (Nerve Gear SDK)
+ï»¿# NERvSDK (Nerve Gear SDK)
 
 The NERvSDK provides you a completed development suit to write and debug plug-ins for SAO Utils.
 
@@ -21,9 +21,9 @@ There're many ways that you can improve the SAO Utilities Project:
 
 The SAO Utilities Project  
 
-Page: [The SAO Utilities Project ¨C Development Log](http://www.gpbeta.com/post/develop/sao-utils/)  
+Page: [The SAO Utilities Project â€“ Development Log](http://www.gpbeta.com/post/develop/sao-utils/)  
 Forum: [SAO Utils Community](http://bbs.gpbeta.com/)  
-Weibo: [@-Ô¼ÐÞÑÇ-](http://weibo.com/gpbeta/)  
+Weibo: [@-çº¦ä¿®äºš-](http://weibo.com/gpbeta/)  
 Google+: [Joshua Chen](https://plus.google.com/+JoshuaChen/)
 
 > Joshua ([Studio GPBeta](http://www.gpbeta.com/)) @2015
