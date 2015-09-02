@@ -11,7 +11,11 @@
 #ifndef NVG_EVENT_H
 #define NVG_EVENT_H
 
-#include "UI/Rect.h"
+#ifdef _NVG_PRIVATE_API
+#include <UI/Rect.h>
+#else
+#include <NERvGear/UI/Rect.h>
+#endif // _NVG_BUILD_DLL
 
 // TODO: separate events into files
 

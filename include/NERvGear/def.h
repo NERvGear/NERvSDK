@@ -61,11 +61,9 @@ extern "C" {
 #ifdef _NVG_BUILD_DLL
 #define NVG_EXPORT(_RET) extern "C" NVG_DLLEXPORT _RET __cdecl
 #define NVG_EXPORT_SYMBOL extern "C" NVG_DLLEXPORT
-#define NVG_API(_RET) extern "C" NVG_DLLEXPORT _RET __cdecl
 #else
 #define NVG_EXPORT(_RET) extern "C" _RET __cdecl
 #define NVG_EXPORT_SYMBOL extern "C" __declspec(dllimport)  // fix for VC
-#define NVG_API(_RET) extern "C" _RET __cdecl
 #endif // _NVG_BUILD_DLL
 
 #ifdef _NVG_EXPORT_UID
