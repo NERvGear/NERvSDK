@@ -42,7 +42,7 @@ enum TYPE {
     CHAR_CP,                //!< code page characters start here, CHAR_CP + enums in encoding.h
     CHARACTER_LAST  = 200,
 
-    STRING_FIST     = 201,
+    STRING_FIRST    = 201,
     STRING          = 201,  //!< wchar_t* null-terminated C string equipment
     STR_ASCII,              //!< char* null-terminated C string equipment
     STR_CP,                 //!< code page strings start here, STR_CP + enums in encoding.h
