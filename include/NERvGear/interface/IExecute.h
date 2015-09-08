@@ -33,7 +33,7 @@ NVG_INTERFACE_EXTEND(IExecute, IUnknown) {
     /// \param [in]  option Reserved.
     /// \retval S_OK    Success, system stops searching the filter chain.
     /// \retval S_FALSE Success, system stops searching the filter chain and tell caller this execution has no action.
-    /// \retval E_FAILED Failed, system continues search the filter chain.
+    /// \retval E_FAIL Failed, system continues search the filter chain.
     /// \return Returns the execution result. System continues search the filter chain if the filter return an error, otherwise, the system
     /// stops searching if the filter succeed.  Finally, if no filter executes the execution successfully, system execute this action
     /// with default behaviour.
