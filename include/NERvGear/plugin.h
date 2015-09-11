@@ -68,7 +68,7 @@ public:
                                            NVG_EXPORT(long) DllUnregisterServer() { return S_FALSE; } }
 
 #define NVG_BEGIN_COMPONENT_REGISTER(_PLUGIN) namespace NERvGear { NVG_EXPORT(long) DllRegisterServer() {
-    #define NVG_REGISTER_OBJECT(_OBJ, _AGG) if (IObjectFactory* factory = nvg_new NerveFactoryT<_OBJ, _AGG>) { \
+    #define NVG_REGISTER_OBJECT(_OBJ, _AGG) if (IObjectFactory* factory = nvg_new ObjectFactoryT<_OBJ, _AGG>) { \
                                                 NERvRegisterObject(_OBJ::STATIC_OBJECT_INFO.classID, _OBJ::STATIC_OBJECT_INFO.objectID, factory); \
                                                 factory->Release(); \
                                             }
@@ -107,7 +107,7 @@ public:
                                                 UID const & iid = *reinterpret_cast<const UID*>(&interfaceID); \
                                                 if (cid == ID_CPlugin) { \
                                                     if (iid == ID_IUnknown || iid == ID_IClassFactory || iid == ID_IObjectFactory) \
-                                                        return (*ppv = nvg_new NerveFactoryT<_PLUGIN_CLASS, false>) ? S_OK : E_OUTOFMEMORY; \
+                                                        return (*ppv = nvg_new ObjectFactoryT<_PLUGIN_CLASS, false>) ? S_OK : E_OUTOFMEMORY; \
                                                     else \
                                                         return E_NOINTERFACE; \
                                                 } else { return E_NOTIMPL; } \

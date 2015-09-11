@@ -102,15 +102,15 @@ public:
 };
 
 template <class T>
-class NerveObjectBaseT {
+class ObjectBaseT {
 public:
-    NerveObjectBaseT(MODULE* module) : m_refCount(0), m_refModule(module)
+    ObjectBaseT(MODULE* module) : m_refCount(0), m_refModule(module)
     {
         // Increment count of active components.
         NERvSyncIncrement(&NVG_MODULE.nActive);
         NERvTraceObject(m_refModule, T::STATIC_OBJECT_INFO.objectID, 1);
     }
-    ~NerveObjectBaseT()
+    ~ObjectBaseT()
     {
         // Decrement count of active components.
         NERvSyncDecrement(&NVG_MODULE.nActive);
@@ -121,16 +121,16 @@ public:
     MODULE* m_refModule;
 };
 
-template <class T, bool AGGREGATABLE> class NerveObjectT {};
+template <class T, bool AGGREGATABLE> class ObjectT {};
 
 template <class T>
-class NerveObjectT<T, true> : public NerveObjectBaseT<T>, public AggregateT<T>, public IPrivateUnknown {
+class ObjectT<T, true> : public ObjectBaseT<T>, public AggregateT<T>, public IPrivateUnknown {
 public:
 
     // NOTE: for debug use, declare functions below as pure virtual if needed
 
-    virtual MODULE*       NVG_METHOD GetReferenceModule() const { return NerveObjectBaseT<T>::m_refModule; }
-    virtual unsigned long NVG_METHOD GetReferenceCount() const { return NerveObjectBaseT<T>::m_refCount; }
+    virtual MODULE*       NVG_METHOD GetReferenceModule() const { return ObjectBaseT<T>::m_refModule; }
+    virtual unsigned long NVG_METHOD GetReferenceCount() const { return ObjectBaseT<T>::m_refCount; }
 
     // implement IPrivateUnknown
 
@@ -147,54 +147,54 @@ public:
 
     virtual unsigned long NVG_METHOD PrivateAddRef()
     {
-        return NERvSyncIncrement(&(NerveObjectBaseT<T>::m_refCount));
+        return NERvSyncIncrement(&(ObjectBaseT<T>::m_refCount));
     }
 
     virtual unsigned long NVG_METHOD PrivateRelease()
     {
-        if (NERvSyncDecrement(&(NerveObjectBaseT<T>::m_refCount)) == 0) {
+        if (NERvSyncDecrement(&(ObjectBaseT<T>::m_refCount)) == 0) {
             delete this;
             return 0;
         }
 
-        return NerveObjectBaseT<T>::m_refCount;
+        return ObjectBaseT<T>::m_refCount;
     }
 
-    NerveObjectT(MODULE* module, IUnknown* outer) :
-        NerveObjectBaseT<T>(module), AggregateT<T>(outer ? outer : reinterpret_cast<IUnknown*>(static_cast<IPrivateUnknown*>(this))) {}
+    ObjectT(MODULE* module, IUnknown* outer) :
+        ObjectBaseT<T>(module), AggregateT<T>(outer ? outer : reinterpret_cast<IUnknown*>(static_cast<IPrivateUnknown*>(this))) {}
 };
 
 template <class T>
-class NerveObjectT<T, false> : public NerveObjectBaseT<T>,  public T {
+class ObjectT<T, false> : public ObjectBaseT<T>, public T {
 public:
 
     // NOTE: for debug use, declare functions below as pure virtual if needed
 
-    virtual MODULE*       NVG_METHOD GetReferenceModule() const { return NerveObjectBaseT<T>::m_refModule; }
-    virtual unsigned long NVG_METHOD GetReferenceCount() const { return NerveObjectBaseT<T>::m_refCount; }
+    virtual MODULE*       NVG_METHOD GetReferenceModule() const { return ObjectBaseT<T>::m_refModule; }
+    virtual unsigned long NVG_METHOD GetReferenceCount() const { return ObjectBaseT<T>::m_refCount; }
 
     // implement IUnknown
 
     virtual unsigned long NVG_METHOD AddRef()
     {
-        return NERvSyncIncrement(&(NerveObjectBaseT<T>::m_refCount));
+        return NERvSyncIncrement(&(ObjectBaseT<T>::m_refCount));
     }
 
     virtual unsigned long NVG_METHOD Release()
     {
-        if (NERvSyncDecrement(&(NerveObjectBaseT<T>::m_refCount)) == 0) {
+        if (NERvSyncDecrement(&(ObjectBaseT<T>::m_refCount)) == 0) {
             delete this;
             return 0;
         }
 
-        return NerveObjectBaseT<T>::m_refCount;
+        return ObjectBaseT<T>::m_refCount;
     }
 
-    NerveObjectT(MODULE* module) : NerveObjectBaseT<T>(module) {}
+    ObjectT(MODULE* module) : ObjectBaseT<T>(module) {}
 
 };
 
-class NerveFactoryBase : public IObjectFactory {
+class ObjectFactoryBase : public IObjectFactory {
 public:
 
     // implement IClassFactory
@@ -244,8 +244,8 @@ public:
         return m_refCount;
     }
 
-    NerveFactoryBase() : m_refCount(1) {}
-    virtual ~NerveFactoryBase() {}
+    ObjectFactoryBase() : m_refCount(1) {}
+    virtual ~ObjectFactoryBase() {}
 
     volatile long m_refCount;
 
@@ -254,7 +254,7 @@ public:
 template <class T>
 static inline long PrivateCreateInstance(MODULE* refModule, const UID& interfaceID, void** ppvObject, T*& ppt)
 {
-    if (NerveObjectT<T, false>* object = nvg_new NerveObjectT<T, false>(refModule)) {
+    if (ObjectT<T, false>* object = nvg_new ObjectT<T, false>(refModule)) {
         long res = object->QueryInterface(interfaceID, ppvObject);
 
         if (NVG_SUCC(res)) {
@@ -277,7 +277,7 @@ static inline long PrivateCreateInstance(MODULE* refModule, IUnknown* unknownOut
     if (unknownOuter && interfaceID != ID_IUnknown)
         return CLASS_E_NOAGGREGATION;
 
-    if (NerveObjectT<T, true>* object = nvg_new NerveObjectT<T, true>(refModule, unknownOuter)) {
+    if (ObjectT<T, true>* object = nvg_new ObjectT<T, true>(refModule, unknownOuter)) {
         long res = object->PrivateQueryInterface(interfaceID, ppvObject);
 
         if (NVG_SUCC(res)) {
@@ -295,10 +295,10 @@ static inline long PrivateCreateInstance(MODULE* refModule, IUnknown* unknownOut
 }
 
 
-template <class T, bool AGGREGATABLE> class NerveFactoryT {};
+template <class T, bool AGGREGATABLE> class ObjectFactoryT {};
 
 template <class T>
-class NerveFactoryT<T, true> : public NerveFactoryBase {
+class ObjectFactoryT<T, true> : public ObjectFactoryBase {
 public:
 
     virtual long NVG_METHOD CreateInstanceEx(MODULE* refModule, IUnknown* unknownOuter, const UID& interfaceID, void** ppvObject)
@@ -311,7 +311,7 @@ public:
 };
 
 template <class T>
-class NerveFactoryT<T, false> : public NerveFactoryBase {
+class ObjectFactoryT<T, false> : public ObjectFactoryBase {
 public:
     virtual long NVG_METHOD CreateInstanceEx(MODULE* refModule, IUnknown* unknownOuter, const UID& interfaceID, void** ppvObject)
     {
