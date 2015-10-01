@@ -1,4 +1,13 @@
 
+/***************************************************************
+ * Name:      IExecute.h
+ * Purpose:   Defines IExecute Interface
+ * Author:    GPBeta ()
+ * Created:   2015-05-20
+ * Copyright: GPBeta ()
+ * License:
+ **************************************************************/
+
 #ifndef NVG_IEXECUTE_H
 #define NVG_IEXECUTE_H
 
@@ -20,40 +29,39 @@ typedef long TYPE;
 
 } // EXEC
 
-/// Execution interface.
+/// \ingroup mod_itf_nvg
+///
+/// \brief Nerve Gear execution interface.
+///
+/// \note
+///     If an action filter returns an error or S_FALSE from its IExecute::Invoke(), the launcher menu will be kept and not get dismissed.
+/// \see
+///     NERvExecute()
+///
+/// \declid{Interface,NERvGear::ID_IData,00000001-0000-0000-4945-786563757465}
 NVG_INTERFACE_EXTEND(IExecute, IUnknown) {
 
     /// Execute an action.
     ///
-    /// \param [in]  window Reserved, the window which execute the action, can be NULL.
-    /// \param [in]  cmd The action command, can be NULL.
-    /// \param [in]  param The action parameter, can be NULL.
-    /// \param [in]  cwd The working directory for the action, can be NULL.
-    /// \param [in]  type The action type. Defined in <NERvGear/NERv1API.h>.
+    /// \param [in]  window Reserved, must be NULL.
+    /// \param [in]  cmd    The action command.
+    /// \param [in]  param  The action parameter, can be NULL.
+    /// \param [in]  cwd    The working directory for the action, can be NULL.
+    /// \param [in]  type   The action type, can be one of the enumeration values of NERvGear::EXEC::ACTION or a custom value.
     /// \param [in]  option Reserved.
-    /// \retval S_OK    Success, system stops searching the filter chain.
-    /// \retval S_FALSE Success, system stops searching the filter chain and tell caller this execution has no action.
-    /// \retval E_FAIL Failed, system continues search the filter chain.
-    /// \return Returns the execution result. System continues search the filter chain if the filter return an error, otherwise, the system
-    /// stops searching if the filter succeed.  Finally, if no filter executes the execution successfully, system execute this action
-    /// with default behaviour.
-    /// \note If an execution returns an error or EXEC::S_NO_ACTION code, the launcher menu will be kept and not dismissed.
+    /// \return
+    ///     Returns the action's execution result.
+    /// \retval S_OK    Success, indicates that caller should stop searching the filter chain.
+    /// \retval S_FALSE Success, indicates that caller should stop searching the filter chain and this action could be ignored.
+    /// \retval E_FAIL  Fail, indicates that caller could continue searching the filter chain.
 	virtual long NVG_METHOD Invoke(UI::IWindow* window, const wchar_t* cmd, const wchar_t* param, const wchar_t* cwd, EXEC::TYPE type, long option) NVG_PURE;
 
 };
 
-// declare IDs
-NVG_DEFINE_UID(NVG_ID_CActionListener, CATALOG::SYSTEM, 0x7B76, 0x4FB7, 0xA4, 0xA4, 0xF8, 0x90, 0x4A, 0xCA, 0xB7, 0xD0); // {::SYSTEM-7B76-4FB7-A4A4-F8904ACAB7D0}
-NVG_DEFINE_UID(NVG_ID_CActionFilter,   CATALOG::SYSTEM, 0x7B76, 0x4FB7, 0xA4, 0xA4, 0xF8, 0x90, 0x4A, 0xCA, 0xB7, 0xD1); // {::SYSTEM-7B76-4FB7-A4A4-F8904ACAB7D1}
-NVG_DEFINE_UID(NVG_ID_IExecute,             0x00000001, 0x0000, 0x0000, 0x49, 0x45, 0x78, 0x65, 0x63, 0x75, 0x74, 0x65); // "IExecute" version 1
-
-// define aliases
-//#define ID_CActionListener NVG_ID_CActionListener
-//#define ID_CActionFilter NVG_ID_CActionFilter
+// Interface ID
+NVG_DEFINE_UID(NVG_ID_IExecute, 0x00000001, 0x0000, 0x0000, 0x49, 0x45, 0x78, 0x65, 0x63, 0x75, 0x74, 0x65);
+static const UID& ID_IExecute = NVG_ID_IExecute; //< "IExecute" version 1
 //#define ID_IExecute NVG_ID_IExecute
-static const UID& ID_CActionListener = NVG_ID_CActionListener;
-static const UID& ID_CActionFilter = NVG_ID_CActionFilter;
-static const UID& ID_IExecute = NVG_ID_IExecute;
 
 } // NERvGear
 

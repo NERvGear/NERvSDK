@@ -15,8 +15,10 @@
 
 namespace NERvGear {
 
+/// \declns{NERvGear::SOUND}
 namespace SOUND {
 
+/// Available sound effects.
 enum TYPE {
     NONE                        = 0,
 
@@ -51,10 +53,29 @@ enum TYPE {
 
 }
 
+
 NVG_EXPORT(long) NERv1Sound(const wchar_t* path, SOUND::TYPE sound);
 
-// latest APIs
+
+/// \ingroup mod_function
+/// @{
+
+
+/// Play an internal sound effect or a sound file.
+///
+/// \param [in]  path  Must be NULL currently.
+/// \param [in]  sound The sound type, can be one of the enumeration values of NERvGear::SOUND::TYPE.
+/// \retval S_OK      Success. The specified sound effect or file is playing asynchronously.
+/// \retval E_NOTIMPL The \a path is not NULL.
+/// \retval E_FAIL    Failed with unknown error.
+///
+/// \version
+/// 	0.1.0 NERv1Sound()
 static inline long NERvSound(const wchar_t* path, SOUND::TYPE sound) { return NERv1Sound(path, sound); }
+
+
+/// @}
+
 
 }
 

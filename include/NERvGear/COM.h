@@ -18,8 +18,9 @@ typedef struct _GUID GUID;
 
 namespace NERvGear {
 
-//! GUID UUID CLSID IID re-implement
-//! It's safe to cast a pointer between NERvGear::UID and ::GUID.
+/// NERvGear GUID UUID CLSID IID re-implementation.
+///
+/// It's safe to cast a pointer between NERvGear::UID and ::GUID.
 union UID {
     struct {    // general GUID
         unsigned long  Data1;
@@ -83,6 +84,30 @@ enum {
 };
 #endif // S_OK
 
+
+
+/// \ingroup mod_function
+/// @{
+
+
+/// \brief Destroy an object and nulls the pointer.
+///
+/// This function calls the interface's Destroy() method to destroy an object and also sets the pointer to NULL.
+///
+/// \todo
+///     Define IDestroyable.
+///
+/// \param [in,out] object Reference of the interface pointer to the object witch supports Destroy() method.
+/// \return
+///     Returns a number the Destroy() method of the interface returned,
+/// which indicates the reference count after the destroying call. \n
+///     If the referenced pointer is NULL, this function do nothing and the return value is 0.
+///
+/// \note
+///     Not all the interfaces support the Destroy() method, specifying an interface that does not has this method
+/// will raise compile error.
+/// \see
+///     NERvRelease()
 template <class T>
 static inline unsigned long NERvDestroy(T*& object)
 {
@@ -94,6 +119,18 @@ static inline unsigned long NERvDestroy(T*& object)
     return 0;
 }
 
+/// \brief Release an object and nulls the pointer.
+///
+/// This function calls the IUnknown::Release() to release an object and also sets the pointer to NULL.
+///
+/// \param [in,out] object Reference of the interface pointer to the object.
+/// \return
+///     Returns a number the IUnknown::Release() returned,
+/// which indicates the reference count after the release call. \n
+///     If the referenced pointer is NULL, this function do nothing and the return value is 0.
+///
+/// \see
+///     NERvDestroy()
 template <class T>
 static inline unsigned long NERvRelease(T*& object)
 {
@@ -107,6 +144,10 @@ static inline unsigned long NERvRelease(T*& object)
 
 } // NERvGear
 
+
+/// @}
+
+
 // COM-compatible errors
 #define NVG_SUCC(_ERR) (_ERR >= 0)
 #define NVG_FAIL(_ERR) (_ERR <  0)
@@ -115,7 +156,9 @@ static inline unsigned long NERvRelease(T*& object)
 #define _NVG_SEVERITY_ERROR   0x80000000
 
 /// \brief Make a custom error code into HRESULT which assign to the COM-compatible interface error code space.
-/// Custom error code must be range from 0 to 65023 (0x0 - 0xFDFF).
+///
+/// \note
+///     Custom error code must be range from 0 to 65023 (0x0 - 0xFDFF).
 #define NVG_MAKERESULT(_SEVERITY, _CODE) ((_NVG_SEVERITY_##_SEVERITY | 0x00040200L) + (0xFFFF & _CODE)) // (SEVERITY_ERROR | FACILITY_ITF | 0x0200) + _ERR
 
 // COM-compatible interfaces

@@ -1,4 +1,13 @@
 
+/***************************************************************
+ * Name:      IUnknown.h
+ * Purpose:   Defines IUnknown Interface
+ * Author:    GPBeta ()
+ * Created:   2015-05-20
+ * Copyright: GPBeta ()
+ * License:
+ **************************************************************/
+
 #ifndef NVG_IUNKNOWN_H
 #define NVG_IUNKNOWN_H
 
@@ -9,29 +18,47 @@
 
 namespace NERvGear {
 
-//! Reimplement of standard IUnknown COM interface.
-//! It's safe to cast a pointer between NERvGear::IUnknown and ::IUnknown.
+
+/// \ingroup mod_itf_com
+///
+/// \brief Reimplementation of standard IUnknown COM interface.
+///
+/// \note
+///     It's safe to cast a pointer between NERvGear::IPrivateUnknown, NERvGear::IUnknown and ::IUnknown.
+///
+/// \declid{Interface,NERvGear::ID_IUnknown,00000000-0000-0000-C000-000000000046}
 NVG_INTERFACE(IUnknown) {
+
     virtual long NVG_METHOD QueryInterface(const UID& interfaceID, void** ppvObject) NVG_PURE;
     virtual unsigned long NVG_METHOD AddRef() NVG_PURE;
     virtual unsigned long NVG_METHOD Release() NVG_PURE;
+    
 };
 
-//! Treat as an IUnknown interface for aggregating
+/// \ingroup mod_itf_com
+///
+/// \brief Treat as an IUnknown interface for aggregation.
+///
+/// \note
+///     It's safe to cast a pointer between NERvGear::IPrivateUnknown, NERvGear::IUnknown and ::IUnknown.
+///
+/// \declid{Interface,NERvGear::ID_IUnknown,00000000-0000-0000-C000-000000000046}
 NVG_INTERFACE(IPrivateUnknown) {
+
     virtual long NVG_METHOD PrivateQueryInterface(const UID& interfaceID, void** ppvObject) NVG_PURE;
     virtual unsigned long NVG_METHOD PrivateAddRef() NVG_PURE;
     virtual unsigned long NVG_METHOD PrivateRelease() NVG_PURE;
+    
 };
 
-// declare IDs
-NVG_DEFINE_UID(NVG_ID_IUnknown, 0x00000000, 0x0000, 0x0000, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46);
 
-// define latest API
+// Interface ID
+NVG_DEFINE_UID(NVG_ID_IUnknown, 0x00000000, 0x0000, 0x0000, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46);
+static const UID& ID_IUnknown = NVG_ID_IUnknown; ///< 00000000-0000-0000-C000-000000000046
+//#define ID_IUnknown NVG_ID_IUnknown
 // TODO: ID_XXX aliases NVG_ID_XXX #define replacement
 // static const UID& ID_IUnknown = NVG_ID_IUnknown; does not work for template parameter
-//#define ID_IUnknown NVG_ID_IUnknown
-static const UID& ID_IUnknown = NVG_ID_IUnknown;
+
 
 // minimum implementation for a COM object
 class UnknownImpl : public IUnknown {

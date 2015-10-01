@@ -17,11 +17,22 @@ namespace NERvGear {
 #define NULL 0
 #endif // NULL
 
+
+/// \ingroup mod_function
+/// @{
+
+
+/// \brief Computes the minimum of \a a and \a b.
 template<class T>
 static inline T NERvMin(T a, T b) { return a < b ? a : b; }
 
+/// \brief Computes the maximum of \a a and \a b.
 template<class T>
 static inline T NERvMax(T a, T b) { return a > b ? a : b; }
+
+
+/// @}
+
 
 // defined in winbase.h
 #ifdef __GNUC__     // GCC
@@ -68,15 +79,14 @@ extern "C" {
 
 #ifdef _NVG_EXPORT_UID
 #define NVG_DEFINE_UID(_NAME, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A) \
-    extern "C" __declspec(dllexport) const UID _NAME = { _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A }
+    extern "C" __declspec(dllexport) const ::NERvGear::UID _NAME = { _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A }
 #else
-//! Define NVG_FLAG_INIT_UID in a source file if you don't link against DLL containing the UID
 #ifdef NVG_FLAG_INIT_UID
 #define NVG_DEFINE_UID(_NAME, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A) \
-    static const UID _NAME = { _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A }
+    static const ::NERvGear::UID _NAME = { _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A }
 #else
 #define NVG_DEFINE_UID(_NAME, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A) \
-    NVG_EXPORT_SYMBOL const UID _NAME
+    NVG_EXPORT_SYMBOL const ::NERvGear::UID _NAME
 #endif // NVG_FLAG_INIT_UID
 #endif // _NVG_EXPORT_UID
 
@@ -94,7 +104,7 @@ extern "C" {
 // declare IDs
 
 union UID;
-NVG_DEFINE_UID(NVG_ID_NULL, 0x00000000, 0x0000, 0x0000, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+NVG_EXPORT_SYMBOL const UID NVG_ID_NULL;
 static const UID& ID_NULL = NVG_ID_NULL;
 
 }

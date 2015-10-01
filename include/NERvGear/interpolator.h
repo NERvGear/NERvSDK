@@ -12,6 +12,7 @@
 
 namespace NERvGear {
 
+/// \declns{NERvGear::Interpolator}
 namespace Interpolator {
 
 // include math.h to use these interpolator

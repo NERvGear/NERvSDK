@@ -59,14 +59,78 @@ NVG_EXPORT(long) NERv1RegisterObject(const UID& classID, const UID& objectID, IO
 NVG_EXPORT(long) NERv1UnregisterObject(const UID& classID, const UID& objectID, MODULE* module);
 
 // latest APIs
-static inline long NERvCreateObject(const UID& classID, const UID& objectID, const UID& interfaceID, IUnknown* unknownOuter, void** ppvObject)
-{ return NERv1CreateObject(classID, objectID, interfaceID, unknownOuter, ppvObject, &NVG_MODULE); }
 
-static inline long NERvRegisterObject(const UID& classID, const UID& objectID, IObjectFactory* objectFactory)
-{ return NERv1RegisterObject(classID, objectID, objectFactory, &NVG_MODULE); }
+/// \ingroup mod_function
+/// @{
 
+/// \brief Find and create an object instance of specified component.
+///
+/// \param [in]  classID     The UID of a component.
+/// \param [in]  objectID    The UID of a component object. If ID_NULL,
+///                          system will find a default implementation for this component.
+/// \param [in]  interfaceID The UID of an interface.
+/// \param [in]  outer       A pointer to the aggregate object's IUnknown interface (the controlling IUnknown).
+/// 	                     This parameter could be NULL, indicates that the object is not being created as part of an aggregate. 
+/// \param [out] object      Address of pointer that receives the interface pointer requested in \a interfaceID.
+/// \retval S_OK                  Success. An instance of the specified component object was successfully created.
+/// \retval CLASS_E_NOAGGREGATION Fail. A specified object cannot be created as part of an aggregate.
+/// \retval E_OBJECT_NOT_FOUND    Fail. A specified object is not registered in the component object database.
+/// \retval E_NOINTERFACE         Fail. A specified class does not implement the requested interface,
+/// 	                          or the controlling IUnknown does not expose the requested interface.
+/// \retval E_INVALIDARG          Fail. one or more parameters are invalid.
+/// \retval E_FAIL                Failed with unknown error.
+///
+/// \version
+///     0.1.0 NERv1CreateObject()
+/// \see
+/// 	NERvRegisterObject(), NERvUnregisterObject()
+///
+/// \header{NERvGear/object.h}
+static inline long NERvCreateObject(const UID& classID, const UID& objectID, const UID& interfaceID, IUnknown* outer, void** object)
+{ return NERv1CreateObject(classID, objectID, interfaceID, outer, object, &NVG_MODULE); }
+
+/// \brief Register an object to the component object database.
+///
+/// \todo
+///     Add object registration macro document.
+///
+/// \param [in]  classID  The UID of a component.
+/// \param [in]  objectID The UID of a component object.
+/// \param [in]  factory  A pointer to the IObjectFactory interface of an object factory.
+/// \retval S_OK                Success. The component object was successfully registered.
+/// \retval E_OBJECT_DUPLICATED Fail. A specified object is already registered in the component object database.
+/// \retval E_INVALIDARG        Fail. The \a factory is NULL.
+/// \retval E_FAIL              Failed with unknown error.
+///
+/// \version
+/// 	0.1.0 NERv1RegisterObject()
+/// \see
+/// 	NERvUnregisterObject(), NERvCreateObject()
+///
+/// \header{NERvGear/object.h}
+static inline long NERvRegisterObject(const UID& classID, const UID& objectID, IObjectFactory* factory)
+{ return NERv1RegisterObject(classID, objectID, factory, &NVG_MODULE); }
+
+/// \brief Unregister an object from the component object database.
+///
+/// \param [in]  classID  The UID of a component.
+/// \param [in]  objectID The UID of a component object.
+/// \retval S_OK               Success. The component object was successfully unregistered.
+/// \retval E_OBJECT_NOT_FOUND Fail. A specified object is not registered in the component object database.
+/// \retval E_FAIL             Failed with unknown error.
+///
+/// \version
+/// 	0.1.0 NERv1UnregisterObject()
+/// \see
+/// 	NERvRegisterObject(), NERvCreateObject()
+///
+/// \header{NERvGear/object.h}
 static inline long NERvUnregisterObject(const UID& classID, const UID& objectID)
 { return NERv1UnregisterObject(classID, objectID, &NVG_MODULE); }
+
+
+/// @}
+
 
 }
 

@@ -11,9 +11,11 @@
 #ifndef NVG_CATALOG_H
 #define NVG_CATALOG_H
 
-// predefined class catalogue identifies
 namespace NERvGear {
 
+/// \brief Predefined component catalogs.
+///
+// Please open an issue on NERvSDK repository if you want to add a catalog.
 namespace CATALOG {
 
 enum {
@@ -25,7 +27,9 @@ enum {
             CORE_UI_CTRL        = 0x00050200,
             CORE_UI_THEME       = 0x00050300,
         CORE_PLUGIN     = 0x00070000,
-
+    
+    // Catalogs below are available for NERvHub defined components.
+    
     SYSTEM      = 0x01000000,
     SECURITY    = 0x02000000,
     NETWORK     = 0x03000000,
@@ -40,5 +44,22 @@ enum {
 }
 
 }
+
+/// \declns{NERvGear::System}
+
+/// \declns{NERvGear::Security}
+
+/// \declns{NERvGear::Network}
+
+/// \declns{NERvGear::Desktop}
+
+/// \declns{NERvGear::Graphic}
+
+/// \declns{NERvGear::Video}
+
+/// \declns{NERvGear::Audio}
+
+/// \declns{NERvGear::ETC}
+
 
 #endif // NVG_CATALOG_H

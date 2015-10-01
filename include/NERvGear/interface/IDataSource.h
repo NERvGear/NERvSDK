@@ -1,4 +1,13 @@
 
+/***************************************************************
+ * Name:      IDataSource.h
+ * Purpose:   Defines Data Source Interface
+ * Author:    GPBeta ()
+ * Created:   2015-05-20
+ * Copyright: GPBeta ()
+ * License:
+ **************************************************************/
+
 #ifndef NVG_IDATASOURCE_H
 #define NVG_IDATASOURCE_H
 
@@ -10,76 +19,82 @@ namespace NERvGear {
 
 struct IData;
 
-/// Nerve Gear data source interface.
+/// \ingroup mod_itf_nvg
+///
+/// \brief Nerve Gear data source interface.
+///
+/// \declid{Interface,NERvGear::ID_IDataSource,00000001-4900-6144-7461-536f75726365}
 NVG_INTERFACE_EXTEND(IDataSource, IUnknown) {
 
-    /// Retrieve the UID of this data source object.
+    /// Retrieves the UID of this data source object.
     ///
     /// \param [out] id Pointer to a UID, must not be NULL.
-    /// \retval S_OK Success.
-    /// \retval E_INVALIDARG Failed, the id parameter is NULL.
-    /// \retval E_FAIL Failed with unknown error.
+    /// \retval S_OK         Success.
+    /// \retval E_INVALIDARG Fail. The \a id is NULL.
+    /// \retval E_FAIL       Failed with unknown error.
     ///
-    /// \note The returned ID must be the same as the object ID specified in the object declaration.
-    /// \todo Document for Object Declaration.
+    /// \note
+    ///     The returned ID must be the same as the object ID specified in the object declaration.
     virtual long NVG_METHOD GetId(UID* id) NVG_PURE;    // source id
 
 
 
-    /// Retrieve the display name for this data source.
+    /// Retrieves the display name for this data source.
     ///
-    /// \param [in]  len The size of the name buffer, in characters. If name is NULL, this parameter must be 0.
+    /// \param [in]  len  The size of the name buffer, in characters. If \a name is NULL, this parameter must be 0.
     /// \param [out] name A pointer to a buffer that receives the null terminated string for the display name, could be NULL.
-    /// \return Returns the size copied into the name buffer, in characters.
-    /// If the name is not NULL, the return value is the length of the string that is copied to the buffer, in characters,
-    /// not including the terminating null character.
-    /// If the buffer is too small to hold the name, the string is truncated to len characters including the terminating null character,
-    /// the function returns len.
-    /// If the name is NULL and len is 0, the return value is the length of the string buffer required, in characters.
-    /// If the function fails, the return value is 0.
+    /// \return
+    ///     Returns the size copied into the \a name buffer, in characters.\n
+    ///     If \a name is not NULL, the return value is the length of the string that is copied to the buffer, in characters,
+    /// not including the terminating null character.\n
+    ///     If \a name buffer is too small to hold the name, the string is truncated to \a len characters including the terminating null character,
+    /// and the return value is \a len.\n
+    ///     If \a name is NULL and \a len is 0, the return value is the length of the string buffer required, in characters,
+    /// including the terminating null character.\n
+    ///     If the function fails, the return value is 0.
+    ///
+    /// \see
+    ///     NERvCopyString()
     virtual size_t NVG_METHOD GetName(size_t len, wchar_t* name) NVG_PURE;
 
-    /// Retrieve the description for this data source.
+    /// Retrieves the description for this data source.
     ///
-    /// \see See IDataSource::GetName() for more details about parameters and return values.
+    /// \remark
+    ///     See IDataSource::GetName() for more details about parameters and return values.
     virtual size_t NVG_METHOD GetDescrip(size_t len, wchar_t* descrip) NVG_PURE;
 
-    /// Retrieve the number of data providing by this data source.
+    /// Retrieves the number of data providing by this data source.
     virtual unsigned NVG_METHOD GetDataCount() NVG_PURE;
 
 
 
-    /// Retrieve a data represented by index.
+    /// Retrieves a data represented by index.
     ///
     /// \param [in]  index A zero based number identifying a data locally.
-    /// \param [out] data A pointer to a buffer receiving the IData pointer.
-    /// \retval S_OK Success.
-    /// \retval E_INVALIDARG Failed, the index parameter is invalid or the data parameter is NULL.
-    /// \retval E_FAIL Failed with unknown error.
+    /// \param [out] data  A pointer to a buffer receiving the IData pointer.
+    /// \retval S_OK         Success.
+    /// \retval E_INVALIDARG Fail. The \a index is invalid or the data parameter is NULL.
+    /// \retval E_FAIL       Failed with unknown error.
     virtual long NVG_METHOD GetData(unsigned index, IData** data) NVG_PURE;
 
-    /// Retrieve a data indicated by UID.
+    /// Retrieves a data indicated by UID.
     ///
     /// \param [in]  id A UID reference associating with a data.
+    /// \param [out] data  A pointer to a buffer receiving the IData pointer.
     ///
-    /// \see See IDataSource::GetData() for more details about parameters and return values.
-    /// \see See also IData::GetId().
+    /// \remark
+    ///     See IDataSource::GetData() for more details about parameters and return values.
+    ///
+    /// \see
+    ///     IData::GetId()
     virtual long NVG_METHOD FindData(const UID& id, IData** data) NVG_PURE;
 
 };
 
-// declare IDs
-NVG_DEFINE_UID(NVG_ID_CDataSource, CATALOG::CORE_COMMON, 0x4300, 0x6144, 0x74, 0x61, 0x53, 0x6F, 0x75, 0x72, 0x63, 0x65); // "CDataSource"
-NVG_DEFINE_UID(NVG_ID_ODataSource,           0x00000001, 0x4F00, 0x6144, 0x74, 0x61, 0x53, 0x6F, 0x75, 0x72, 0x63, 0x65); // "ODataSource" version 1
-NVG_DEFINE_UID(NVG_ID_IDataSource,           0x00000001, 0x4900, 0x6144, 0x74, 0x61, 0x53, 0x6F, 0x75, 0x72, 0x63, 0x65); // "IDataSource" version 1
-
-// define aliases
-//#define ID_CDataSource NVG_ID_CDataSource
-//#define ID_ODataSource NVG_ID_ODataSource
+// Interface ID
+NVG_DEFINE_UID(NVG_ID_IDataSource, 0x00000001, 0x4900, 0x6144, 0x74, 0x61, 0x53, 0x6F, 0x75, 0x72, 0x63, 0x65);
+static const UID& ID_IDataSource = NVG_ID_IDataSource; ///< "IDataSource" version 1
 //#define ID_IDataSource NVG_ID_IDataSource
-static const UID& ID_CDataSource = NVG_ID_CDataSource;
-static const UID& ID_ODataSource = NVG_ID_ODataSource;
-static const UID& ID_IDataSource = NVG_ID_IDataSource;
 
 
 } // NERvGear

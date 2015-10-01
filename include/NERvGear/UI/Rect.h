@@ -1,5 +1,5 @@
 
-//! temporary replacement header
+// temporary replacement header
 
 #ifndef NVG_RECT_H
 #define NVG_RECT_H

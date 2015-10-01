@@ -421,8 +421,8 @@ public:
     inline DataUpdateEvent* ToDataUpdateEvent();
 
     template <class E>
-    bool Veryfy()              const { return m_signature == sizeof(E); }
-    bool Veryfy(unsigned sign) const { return m_signature == sign; }
+    bool Verify()              const { return m_signature == sizeof(E); }
+    bool Verify(unsigned sign) const { return m_signature == sign; }
 
     EVT::TYPE GetType() const { return m_type; }
     unsigned GetSignature() const { return m_signature; }

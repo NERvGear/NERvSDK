@@ -1,4 +1,13 @@
 
+/***************************************************************
+ * Name:      IPlugin.h
+ * Purpose:   Defines IPlugin Interface
+ * Author:    GPBeta ()
+ * Created:   2015-05-20
+ * Copyright: GPBeta ()
+ * License:
+ **************************************************************/
+
 #ifndef NVG_IPLUGIN_H
 #define NVG_IPLUGIN_H
 
@@ -32,7 +41,11 @@ typedef long TYPE;
 
 } // PLUGIN
 
-// IPlugin interface
+/// \ingroup mod_itf_nvg
+///
+/// \brief Nerve Gear plug-in interface.
+/// 
+/// \declid{Interface,NERvGear::ID_IPlugin,00000001-0000-0000-0049-506C7567696E}
 NVG_INTERFACE_EXTEND(IPlugin, IUnknown) {
 
     virtual long NVG_METHOD OnInitial() NVG_PURE;
@@ -43,15 +56,10 @@ NVG_INTERFACE_EXTEND(IPlugin, IUnknown) {
 
 };
 
-// declare IDs
-NVG_DEFINE_UID(NVG_ID_CPlugin, CATALOG::CORE_PLUGIN, 0x0000, 0x0000, 0x00, 0x43, 0x50, 0x6C, 0x75, 0x67, 0x69, 0x6E); // "CPlugin"
-NVG_DEFINE_UID(NVG_ID_IPlugin,           0x00000001, 0x0000, 0x0000, 0x00, 0x49, 0x50, 0x6C, 0x75, 0x67, 0x69, 0x6E); // "IPlugin" version 1
-
-// define latest API
-//#define ID_CPlugin NVG_ID_CPlugin
+// Interface ID
+NVG_DEFINE_UID(NVG_ID_IPlugin, 0x00000001, 0x0000, 0x0000, 0x00, 0x49, 0x50, 0x6C, 0x75, 0x67, 0x69, 0x6E);
+static const UID& ID_IPlugin = NVG_ID_IPlugin; ///< "IPlugin" version 1
 //#define ID_IPlugin NVG_ID_IPlugin
-static const UID& ID_CPlugin = NVG_ID_CPlugin; // Class ID
-static const UID& ID_IPlugin = NVG_ID_IPlugin; // Interface ID
 
 }
 

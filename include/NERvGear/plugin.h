@@ -16,6 +16,7 @@
 #include <NERvGear/object.h>
 #include <NERvGear/template.h>
 
+#include <NERvGear/component/CPlugin.h>
 #include <NERvGear/interface/IPlugin.h>
 
 namespace NERvGear {
@@ -148,6 +149,6 @@ struct PLUGIN_INFO {
     void* reserved;
 };
 
-}
+} // NERvGear
 
 #endif // NVG_PLUGIN_H

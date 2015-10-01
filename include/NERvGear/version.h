@@ -30,9 +30,9 @@ namespace NERvGear {
 
 // define NERvSDK version
 #define NVS_VER_MAJOR       0
-#define NVS_VER_MINOR       1
+#define NVS_VER_MINOR       2
 #define NVS_VER_SUBMINOR    0
-#define NVS_VER_RESERVED    23300 // 8.20 build 1
+#define NVS_VER_RESERVED    27400 // 10.01 build 1
 
 #define NVS_VER_REV                  NVS_VER_MAJOR, NVS_VER_MINOR, NVS_VER_SUBMINOR, NVS_VER_RESERVED
 #define NVS_VER_STR  NVG_DOT_VERSION(NVS_VER_MAJOR, NVS_VER_MINOR, NVS_VER_SUBMINOR, NVS_VER_RESERVED)
@@ -55,14 +55,85 @@ static inline bool operator!=(const VERSION& a, const VERSION& b)
     return a.major != b.major || a.minor != b.minor || a.subminor != b.subminor || a.reserved != b.reserved;
 }
 
+
+/// \ingroup mod_function
+/// @{
+
+
 // NERvGear core version
-NVG_EXPORT(VERSION)        NERvVerCodeCore();
+
+
+/// \brief Retrieves core(NERvGear) version code.
+///
+/// \see
+///     NERvVerCodeHost()
+///
+/// \header{NERvGear/version.h}
+NVG_EXPORT(VERSION) NERvVerCodeCore();
+
+/// \brief Retrieves core(NERvGear) version name string.
+///
+/// e.g.
+/// > "Beta 1 x64"
+///
+/// \see
+///     NERvVerNameHost()
+///
+/// \header{NERvGear/version.h}
 NVG_EXPORT(const wchar_t*) NERvVerNameCore();
+
+/// \brief Retrieves core(NERvGear) name string.
+///
+/// e.g.
+/// > "Nerve Gear"
+///
+/// \see
+///     NERvGetHostName()
+///
+/// \header{NERvGear/version.h}
 NVG_EXPORT(const wchar_t*) NERvGetCoreName();
+
+
 // NERvGear host version
-NVG_EXPORT(VERSION)        NERvVerCodeHost();
+
+
+/// \brief Retrieves host program version code.
+///
+/// \see
+///     NERvVerCodeCore()
+///
+/// \header{NERvGear/version.h}
+NVG_EXPORT(VERSION) NERvVerCodeHost();
+
+/// \brief Retrieves host program version name string.
+///
+/// e.g. SAO Utils.exe provides
+/// > "Beta 1 x64"
+/// while NERvSDK.exe provides
+/// > "0.1.0.0 x64"
+///
+/// \see
+///     NERvVerNameCore()
+///
+/// \header{NERvGear/version.h}
 NVG_EXPORT(const wchar_t*) NERvVerNameHost();
+
+/// \brief Retrieves host program name string.
+///
+/// e.g. SAO Utils.exe provides
+/// > "SAO Utils"
+/// while NERvSDK.exe provides
+/// > "NERvSDK"
+///
+/// \see
+///     NERvGetHostName()
+///
+/// \header{NERvGear/version.h}
 NVG_EXPORT(const wchar_t*) NERvGetHostName();
+
+
+/// @}
+
 
 }
 

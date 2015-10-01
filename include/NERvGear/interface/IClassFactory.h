@@ -1,4 +1,13 @@
 
+/***************************************************************
+ * Name:      IClassFactory.h
+ * Purpose:   Defines IClassFactory Interface
+ * Author:    GPBeta ()
+ * Created:   2015-05-20
+ * Copyright: GPBeta ()
+ * License:
+ **************************************************************/
+
 #ifndef NVG_ICLASSFACTORY_H
 #define NVG_ICLASSFACTORY_H
 
@@ -8,8 +17,14 @@
 
 namespace NERvGear {
 
-//! Reimplement of standard IClassFactory COM interface.
-//! It's safe to cast a pointer between NERvGear::IClassFactory and ::IClassFactory.
+/// \ingroup mod_itf_com
+///
+/// \brief Reimplementation of standard IClassFactory COM interface.
+///
+/// \note
+///     It's safe to cast a pointer between NERvGear::IClassFactory and ::IClassFactory.
+///
+/// \declid{Interface,NERvGear::ID_IClassFactory,00000001-0000-0000-C000-000000000046}
 NVG_INTERFACE_EXTEND(IClassFactory, IUnknown) {
 
     virtual long NVG_METHOD CreateInstance(IUnknown* unknownOuter, const UID& interfaceID, void** ppvObject) NVG_PURE;
@@ -17,12 +32,10 @@ NVG_INTERFACE_EXTEND(IClassFactory, IUnknown) {
 
 };
 
-// declare IDs
+// Interface ID
 NVG_DEFINE_UID(NVG_ID_IClassFactory, 0x00000001, 0x0000, 0x0000, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46);
-
-// define aliases
+static const UID& ID_IClassFactory = NVG_ID_IClassFactory; ///< 00000001-0000-0000-C000-000000000046
 //#define ID_IClassFactory NVG_ID_IClassFactory
-static const UID& ID_IClassFactory = NVG_ID_IClassFactory;
 
 } // NERvGear
 
