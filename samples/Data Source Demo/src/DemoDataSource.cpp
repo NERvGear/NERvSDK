@@ -26,6 +26,7 @@
 #include <NERvGear/string.h>
 #include <NERvGear/new.h>
 #include <NERvGear/log.h>
+#include <NERvGear/component/CDataSource.h>
 
 using namespace NERvGear;
 
