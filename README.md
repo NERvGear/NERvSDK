@@ -6,7 +6,10 @@ The NERvSDK provides you a completed development suit to write and debug plug-in
 
 ## Using NERvSDK
 
-Please visit [NERvSDK Wiki](https://github.com/GPBeta/NERvSDK/wiki) to take a quick tour about how to get started with the SDK, sample projects and more.  
+Please visit [NERvSDK Wiki](https://github.com/GPBeta/NERvSDK/wiki) to take a quick tour about how to get started with the SDK, sample projects and more.
+
+The latest online [API Reference](http://nvg.gpbeta.com/library/modules.html) is available on the [NERvDN Library](http://nvg.gpbeta.com/library), there's also a snapshot version located at `NERvSDK\docs\NERvLibrary.chm`.
+
 You can also find more details and learn the [Component Object Model (COM)](https://msdn.microsoft.com/library/ms680573(VS.85).aspx) at the Microsoft Developer Network.
 
 ## Contributing to Our Project
