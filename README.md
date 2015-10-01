@@ -19,7 +19,9 @@ There're many ways that you can improve the SAO Utilities Project:
 
 ## Copyright
 
-The SAO Utilities Project  
+The SAO Utilities Project
+
+开发交流群: 494434905 (QQ)
 
 Page: [The SAO Utilities Project – Development Log](http://www.gpbeta.com/post/develop/sao-utils/)  
 Forum: [SAO Utils Community](http://bbs.gpbeta.com/)  
