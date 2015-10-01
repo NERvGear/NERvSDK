@@ -1,5 +1,7 @@
 ﻿# NERvSDK (Nerve Gear SDK)
 
+![The SAO Utilities Project](NERvSDK/docs/doxygen/project.jpg)
+
 The NERvSDK provides you a completed development suit to write and debug plug-ins for SAO Utils.
 
 ## Using NERvSDK
