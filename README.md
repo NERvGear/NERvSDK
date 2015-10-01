@@ -6,7 +6,7 @@ The NERvSDK provides you a completed development suit to write and debug plug-in
 
 ## Using NERvSDK
 
-Please visit [NERvSDK Wiki](https://github.com/GPBeta/NERvSDK/wiki) to take a quick tour about how to get started with the SDK, sample projects and more.
+Please visit [NERvSDK Wiki](https://github.com/NERvGear/NERvSDK/wiki) to take a quick tour about how to get started with the SDK, sample projects and more.
 
 The latest online [API Reference](http://nvg.gpbeta.com/library/modules.html) is available on the [NERvDN Library](http://nvg.gpbeta.com/library), there's also a snapshot version located at `NERvSDK\docs\NERvLibrary.chm`.
 
@@ -18,9 +18,7 @@ There're many ways that you can improve the SAO Utilities Project:
 
 1. Give us feedback of issues or improvements for both the SAO Utils and NERvSDK.
 2. Make patches to enhance or fix bugs for the NERvSDK.
-3. Write plug-ins or component implementations.
-4. Design new components or interfaces.
-5. Improve the API reference documents.
+3. Join our [NERvDN](https://github.com/NERvGear) team, and contribute to the [NERvHub](https://github.com/NERvGear/NERvHub)!
 
 ## Copyright
 
