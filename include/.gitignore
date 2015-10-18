@@ -1,3 +1,9 @@
 # Feel free to check out NERvHub project here.
 
 /NERvHub
+
+# Files
+
+/*.cbp
+/*.depend
+/*.layout

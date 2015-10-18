@@ -6,7 +6,9 @@
 
 *.sdf
 *.suo
+*.user
 
 # CB files
 
+*.depend
 *.layout
