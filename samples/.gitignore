@@ -4,6 +4,7 @@
 
 # VS files
 
+*.ncb
 *.sdf
 *.suo
 *.user

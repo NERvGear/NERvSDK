@@ -20,7 +20,7 @@
 /// ----------------------------------------------------------------------------
 /// \class DemoDataSource
 /// ----------------------------------------------------------------------------
-class NVG_EXPORT_CLASS DemoDataSource : public NERvGear::IDataSource {
+class DemoDataSource : public NERvGear::IDataSource {
 public:
 
 	// We are providing 2 data in this data source,

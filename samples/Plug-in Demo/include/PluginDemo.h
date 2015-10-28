@@ -16,10 +16,8 @@
 /// ----------------------------------------------------------------------------
 /// \class PluginDemo
 /// \brief Demo Plug-in
-/// \remarks For VS developers:
-///     Use NVG_EXPORT_CLASS macro to export a class if you need crashing call stack for specified classes
 /// ----------------------------------------------------------------------------
-class NVG_EXPORT_CLASS /* optional, see remarks */ PluginDemo : public NERvGear::PluginImpl {
+class PluginDemo : public NERvGear::PluginImpl {
 public:
 
     /// Handlers

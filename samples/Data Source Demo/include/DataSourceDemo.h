@@ -13,7 +13,7 @@
 
 #include <NERvGear/plugin.h>
 
-class NVG_EXPORT_CLASS DataSourceDemo : public NERvGear::PluginImpl {
+class DataSourceDemo : public NERvGear::PluginImpl {
 public:
 
     /// Handlers

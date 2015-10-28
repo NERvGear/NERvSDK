@@ -21,7 +21,7 @@ class DemoDataSource;
 /// ----------------------------------------------------------------------------
 /// \class DemoDataSource
 /// ----------------------------------------------------------------------------
-class NVG_EXPORT_CLASS DemoData1 : public NERvGear::ImplT<NVG_ARGS_ITF_UID(IData)> {
+class DemoData1 : public NERvGear::ImplT<NVG_ARGS_ITF_UID(IData)> {
 public:
 
 	//×ÓValueÃ¶¾Ù

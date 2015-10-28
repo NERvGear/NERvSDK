@@ -21,7 +21,7 @@ class DemoDataSource;
 /// ----------------------------------------------------------------------------
 /// \class DemoDataSource
 /// ----------------------------------------------------------------------------
-class NVG_EXPORT_CLASS DemoData2 : public NERvGear::ImplT<NVG_ARGS_ITF_UID(IData)> {
+class DemoData2 : public NERvGear::ImplT<NVG_ARGS_ITF_UID(IData)> {
 public:
 
 	enum VALUE_LIST {
@@ -56,7 +56,7 @@ public:
 	virtual size_t NVG_METHOD GetValue(unsigned index, size_t nbyte, void* buf);
 	virtual size_t NVG_METHOD GetMaximum(unsigned index, size_t nbyte, void* buf);
 	virtual size_t NVG_METHOD GetMinimum(unsigned index, size_t nbyte, void* buf);
-		
+
 	virtual unsigned NVG_METHOD GetValueIndex(int id);
 	virtual int NVG_METHOD GetValueId(unsigned index);
 	virtual NERvGear::DATA::TYPE NVG_METHOD GetValueType(unsigned index);
