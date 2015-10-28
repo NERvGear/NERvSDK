@@ -63,19 +63,39 @@ extern "C" {
 #define NVG_MODULE_DLL "module32.dll"
 #endif // WIN64 || _WIN64
 
-#ifdef _NVG_DLLEXPORT_CONTROL
-#define NVG_DLLEXPORT __declspec(dllexport)
+#ifdef _NVG_BUILD_RES
+#define NVG_SYMEXPORT __declspec(dllexport)
 #else
-#define NVG_DLLEXPORT // MinGW export all symbols by default
-#endif // _NVG_DLLEXPORT_CONTROL
+#define NVG_SYMEXPORT __declspec(dllimport)
+#endif // _NVG_BUILD_RES
 
-#ifdef _NVG_BUILD_DLL
-#define NVG_EXPORT(_RET) extern "C" NVG_DLLEXPORT _RET __cdecl
-#define NVG_EXPORT_SYMBOL extern "C" NVG_DLLEXPORT
+#ifdef _NVG_BUILD_API
+#define NVG_APIEXPORT __declspec(dllexport)
 #else
-#define NVG_EXPORT(_RET) extern "C" _RET __cdecl
-#define NVG_EXPORT_SYMBOL extern "C" __declspec(dllimport)  // fix for VC
-#endif // _NVG_BUILD_DLL
+// TODO: Remove source dependences between CORE and API.
+#ifdef _NVG_BUILD_CORE
+#define NVG_APIEXPORT
+#else
+#define NVG_APIEXPORT __declspec(dllimport)
+#endif // _NVG_BUILD_CORE
+#endif // _NVG_BUILD_API
+
+#if defined(_NVG_BUILD_CORE)
+#define NVG_COREXPORT __declspec(dllexport)
+#elif defined(_NVG_BUILD_API) || defined(_NVG_BUILD_HOST)
+#define NVG_COREXPORT __declspec(dllimport)
+#else
+#define NVG_COREXPORT
+#endif // _NVG_BUILD_CORE
+
+#define NVG_EXPORT_SYMBOL extern "C" NVG_SYMEXPORT
+#define NVG_EXPORT(_RET)  extern "C" NVG_APIEXPORT _RET __cdecl
+
+#ifdef NVG_FLAG_FORCE_EXPORT
+#define _NVG_EXPORT(_RET) extern "C" __declspec(dllexport) _RET __cdecl
+#else // VC use def file to export these symbols while MinGW has no need to declare explicitly.
+#define _NVG_EXPORT(_RET) extern "C" _RET __cdecl
+#endif // NVG_FLAG_FORCE_EXPORT
 
 #ifdef _NVG_EXPORT_UID
 #define NVG_DEFINE_UID(_NAME, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A) \
@@ -91,15 +111,23 @@ extern "C" {
 #endif // _NVG_EXPORT_UID
 
 //! Define NVG_FLAG_IMPORT in your project when importing plug-in DLLs
+//! Define NVG_FLAG_FORCE_EXPORT in your project if you really want to export them explicitly.
+// TODO: Change NVG_EXPORT_CLASS to NVG_DLLEXPORT
 #ifdef NVG_FLAG_IMPORT
-#define NVG_EXPORT_CLASS __declspec(dllimport)
-#elif defined(_MSC_VER) || defined(_NVG_DLLEXPORT_CONTROL)
-#define NVG_EXPORT_CLASS __declspec(dllexport)
+#define NVG_DLLEXPORT __declspec(dllimport)
 #else
-#define NVG_EXPORT_CLASS
+#if defined(_MSC_VER) || defined(NVG_FLAG_FORCE_EXPORT)
+#define NVG_DLLEXPORT __declspec(dllexport)
+#else
+#define NVG_DLLEXPORT
+#endif // _MSC_VER
 #endif // NVG_FLAG_IMPORT
 
 #define NVG_DEPRECATED(_TYPE, _EXTRA) __declspec(deprecated("This " _TYPE " was deprecated, " _EXTRA "."))
+
+// declare module
+
+NVG_COREXPORT extern struct MODULE NVG_MODULE;
 
 // declare IDs
 

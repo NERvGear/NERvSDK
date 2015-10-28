@@ -65,15 +65,15 @@ public:
                                            { {NVS_VER_REV}, ::NERvGear::ID_CPlugin, NVG_PLUGIN_INFO.id, NVG_PLUGIN_INFO.version, NVG_PLUGIN_INFO.name, NVG_PLUGIN_INFO.descrip, NULL }; \
 
 #define NVG_NO_COMPONENT_REGISTER(_PLUGIN) namespace NERvGear { \
-                                           NVG_EXPORT(long) DllRegisterServer() { return S_FALSE; } \
-                                           NVG_EXPORT(long) DllUnregisterServer() { return S_FALSE; } }
+                                           _NVG_EXPORT(long) DllRegisterServer() { return S_FALSE; } \
+                                           _NVG_EXPORT(long) DllUnregisterServer() { return S_FALSE; } }
 
-#define NVG_BEGIN_COMPONENT_REGISTER(_PLUGIN) namespace NERvGear { NVG_EXPORT(long) DllRegisterServer() {
+#define NVG_BEGIN_COMPONENT_REGISTER(_PLUGIN) namespace NERvGear { _NVG_EXPORT(long) DllRegisterServer() {
     #define NVG_REGISTER_OBJECT(_OBJ, _AGG) if (IObjectFactory* factory = nvg_new ObjectFactoryT<_OBJ, _AGG>) { \
                                                 NERvRegisterObject(_OBJ::STATIC_OBJECT_INFO.classID, _OBJ::STATIC_OBJECT_INFO.objectID, factory); \
                                                 factory->Release(); \
                                             }
-#define NVG_END_COMPONENT_REGISTER() return S_OK; } NVG_EXPORT(long) DllUnregisterServer() { return NERvUnregisterObject(ID_NULL, ID_NULL); } }
+#define NVG_END_COMPONENT_REGISTER() return S_OK; } _NVG_EXPORT(long) DllUnregisterServer() { return NERvUnregisterObject(ID_NULL, ID_NULL); } }
 
 // NOTE: remove NVG_END_PLUGIN_INFO from Code Completion parser
 
@@ -86,23 +86,23 @@ public:
                                                 return true; \
                                             } \
                                             \
-                                            NVG_EXPORT(long) DllCanUnloadNow() \
+                                            _NVG_EXPORT(long) DllCanUnloadNow() \
                                             { \
                                                 return (NVG_MODULE.nActive || NVG_MODULE.nLock) ? S_FALSE : S_OK; \
                                             } \
                                             \
-                                            NVG_EXPORT(PLUGIN_INFO const *) DllGetInfo() \
+                                            _NVG_EXPORT(PLUGIN_INFO const *) DllGetInfo() \
                                             { \
                                                 return &NVG_PLUGIN_INFO; \
                                             } \
                                             \
-                                            NVG_EXPORT(MODULE*) DllRegisterModule(ModuleContext* context) \
+                                            _NVG_EXPORT(MODULE*) DllRegisterModule(ModuleContext* context) \
                                             { \
                                                 NVG_MODULE.context = context; \
                                                 return &NVG_MODULE; \
                                             } \
                                             \
-                                            NVG_EXPORT(long) DllGetClassObject(const GUID& classID, const GUID& interfaceID, void** ppv) \
+                                            _NVG_EXPORT(long) DllGetClassObject(const GUID& classID, const GUID& interfaceID, void** ppv) \
                                             { \
                                                 UID const & cid = *reinterpret_cast<const UID*>(&classID); \
                                                 UID const & iid = *reinterpret_cast<const UID*>(&interfaceID); \

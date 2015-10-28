@@ -16,9 +16,6 @@
 
 namespace NERvGear {
 
-extern struct MODULE NVG_MODULE;
-
-
 NVG_EXPORT(size_t) NERv1Translation(const wchar_t* catalog, const wchar_t* src, size_t nCharDst, wchar_t* dst, MODULE* module);
 
 static inline void PrivateCopyCharArray(size_t nChar, const wchar_t* src, wchar_t* dst)

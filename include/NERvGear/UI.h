@@ -17,8 +17,6 @@ namespace NERvGear {
 
 struct IUnknown;
 
-extern struct MODULE NVG_MODULE;
-
 namespace UI {
 
 class LogicPoint;

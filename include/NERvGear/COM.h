@@ -50,7 +50,7 @@ static inline bool operator!=(const UID& a, const UID& b)
 
 class ModuleContext;
 
-extern struct MODULE {
+struct MODULE {
     long  nActive;
     long  nPrivate;
     long  nLock;
@@ -59,7 +59,7 @@ extern struct MODULE {
     void* hHandle;
     void* reserved1;
     void* reserved2;
-} NVG_MODULE;
+};
 
 // standard COM errors
 #ifndef S_OK    // defined in winerror.h
