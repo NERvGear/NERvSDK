@@ -27,7 +27,7 @@ enum ID {
 
 NONE                       = 0x0000,
 //CREATE                     = 0x0001,
-//DESTROY                    = 0x0002,
+DESTROY                    = 0x0002,
 MOVE                       = 0x0003,
 SIZE                       = 0x0005,
 //
@@ -43,7 +43,7 @@ ENABLE                     = 0x000A,
 PAINT                      = 0x000F,
 //CLOSE                      = 0x0010,
 //
-//QUIT                       = 0x0012,
+QUIT                       = 0x0012,
 //ERASEBKGND                 = 0x0014,
 //SYSCOLORCHANGE             = 0x0015,
 SHOW                       = 0x0018,    // origin: WM_SHOWWINDOW
@@ -131,19 +131,19 @@ CONTEXTMENU                = 0x007B,
 //
 //INPUT_DEVICE_CHANGE        = 0x00FE,
 //INPUT                      = 0x00FF,
-//
-//KEYFIRST                   = 0x0100,
-//KEYDOWN                    = 0x0100,
-//KEYUP                      = 0x0101,
-//CHAR                       = 0x0102,
-//DEADCHAR                   = 0x0103,
-//SYSKEYDOWN                 = 0x0104,
-//SYSKEYUP                   = 0x0105,
-//SYSCHAR                    = 0x0106,
-//SYSDEADCHAR                = 0x0107,
-//UNICHAR                    = 0x0109,
-//KEYLAST                    = 0x0109,
-//
+
+KEYFIRST                   = 0x0100,
+KEYDOWN                    = 0x0100,
+KEYUP                      = 0x0101,
+CHAR                       = 0x0102,
+DEADCHAR                   = 0x0103,
+SYSKEYDOWN                 = 0x0104,
+SYSKEYUP                   = 0x0105,
+SYSCHAR                    = 0x0106,
+SYSDEADCHAR                = 0x0107,
+UNICHAR                    = 0x0109,
+KEYLAST                    = 0x0109,
+
 //IME_STARTCOMPOSITION       = 0x010D,
 //IME_ENDCOMPOSITION         = 0x010E,
 //IME_COMPOSITION            = 0x010F,
@@ -368,8 +368,10 @@ class SizeEvent;
 class FocusEvent;
 class EnableEvent;
 class PaintEvent;
+class QuitEvent;
 class ShowEvent;
 class ContextMenuEvent;
+class KeyEvent;
 class CommandEvent;
 class TimerEvent;
 class ScrollEvent;
@@ -387,12 +389,14 @@ public:
     bool       IsFocusEvent() const { return m_type == EVT::SETFOCUS || m_type == EVT::KILLFOCUS; }
     bool      IsEnableEvent() const { return m_type == EVT::ENABLE; }
     bool       IsPaintEvent() const { return m_type == EVT::PAINT; }
+    bool        IsQuitEvent() const { return m_type == EVT::QUIT; }
     bool        IsShowEvent() const { return m_type == EVT::SHOW; }
     bool IsContextMenuEvent() const { return m_type == EVT::CONTEXTMENU; }
+    bool         IsKeyEvent() const { return m_type >= EVT::KEYFIRST && m_type <= EVT::KEYLAST; }
     bool     IsCommandEvent() const { return m_type == EVT::COMMAND; }
     bool       IsTimerEvent() const { return m_type == EVT::TIMER; }
     bool      IsScrollEvent() const { return m_type == EVT::HSCROLL || m_type == EVT::VSCROLL; }
-    bool       IsMouseEvent()
+    bool       IsMouseEvent() const
     {
         return (m_type >= EVT::MOUSEFIRST && m_type <= EVT::MOUSELAST) ||
                (m_type >= EVT::MOUSEENTER && m_type <= EVT::MOUSELEAVE);
@@ -402,7 +406,7 @@ public:
     bool IsDataUpdateEvent() const { return m_type == EVT::DATAUPDATE; }
 
     // safe event casting,
-    // hover it's safe to static_cast any events to its real type
+    // it's safe to static_cast any events to its real type
 
     // basic events
     inline        MoveEvent* ToMoveEvent();
@@ -410,8 +414,10 @@ public:
     inline       FocusEvent* ToFocusEvent();
     inline       PaintEvent* ToPaintEvent();
     inline      EnableEvent* ToEnableEvent();
+    inline        QuitEvent* ToQuitEvent();
     inline        ShowEvent* ToShowEvent();
     inline ContextMenuEvent* ToContextMenuEvent();
+    inline         KeyEvent* ToKeyEvent();
     inline     CommandEvent* ToCommandEvent();
     inline       TimerEvent* ToTimerEvent();
     inline      ScrollEvent* ToScrollEvent();
@@ -500,6 +506,14 @@ public:
     } hint;
 };
 
+class QuitEvent : public Event { // global event
+public:
+    QuitEvent(int evtCode, unsigned sign = sizeof(QuitEvent)) :
+        Event(EVT::QUIT, NULL, sign), code(evtCode) {}
+
+    bool code;
+};
+
 class ShowEvent : public Event {
 public:
     ShowEvent(bool evtShow, unsigned sign = sizeof(ShowEvent)) :
@@ -515,6 +529,30 @@ public:
 
     UI::PixelPoint pt;  // in client coordinate, NOT in view coordinate, WM_CONTEXTMENU's lParam is also changed
     UI::View* view;
+};
+
+class KeyEvent : public Event {
+public:
+    KeyEvent(EVT::TYPE evtType, unsigned evtCode, unsigned evtExtra, unsigned sign = sizeof(KeyEvent)) :
+        Event(evtType, NULL, sign), code(evtCode), extra(evtExtra) {}
+
+    // virtual key code or character code for responding events
+    unsigned code;
+    // extra information
+    union KeyExtra {
+        KeyExtra() : raw(0x0) {}
+        KeyExtra(unsigned lParam) : raw(lParam) {}
+        unsigned raw;
+        struct {
+            unsigned REPEAT_COUNT     : 16;
+            unsigned SCAN_CODE        : 8;
+            unsigned EXTENDED         : 1;
+            unsigned RESERVED         : 4;
+            unsigned CONTEXT_CODE     : 1;
+            unsigned PREVIOUS_STATE   : 1;
+            unsigned TRANSITION_STATE : 1;
+        };
+    } extra;
 };
 
 class CommandEvent : public Event {
@@ -636,8 +674,10 @@ NVG_EVENT_CAST_IMPL(SizeEvent)
 NVG_EVENT_CAST_IMPL(FocusEvent)
 NVG_EVENT_CAST_IMPL(EnableEvent)
 NVG_EVENT_CAST_IMPL(PaintEvent)
+NVG_EVENT_CAST_IMPL(QuitEvent)
 NVG_EVENT_CAST_IMPL(ShowEvent)
 NVG_EVENT_CAST_IMPL(ContextMenuEvent)
+NVG_EVENT_CAST_IMPL(KeyEvent)
 NVG_EVENT_CAST_IMPL(CommandEvent)
 NVG_EVENT_CAST_IMPL(TimerEvent)
 NVG_EVENT_CAST_IMPL(ScrollEvent)
