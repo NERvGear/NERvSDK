@@ -53,7 +53,7 @@ NVG_INTERFACE(IPrivateUnknown) {
 
 
 // Interface ID
-NVG_DEFINE_UID(NVG_ID_IUnknown, 0x00000000, 0x0000, 0x0000, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46);
+NVG_EXPORT_UID(NVG_ID_IUnknown, 0x00000000, 0x0000, 0x0000, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46);
 static const UID& ID_IUnknown = NVG_ID_IUnknown; ///< 00000000-0000-0000-C000-000000000046
 //#define ID_IUnknown NVG_ID_IUnknown
 // TODO: ID_XXX aliases NVG_ID_XXX #define replacement

@@ -31,7 +31,7 @@ NVG_INTERFACE_EXTEND(IEventHandler, IUnknown) {
 };
 
 // Interface ID
-NVG_DEFINE_UID(NVG_ID_IEventHandler, 0x49000001, 0x7645, 0x6E65, 0x74, 0x48, 0x61, 0x6E, 0x64, 0x6C, 0x65, 0x72);
+NVG_EXPORT_UID(NVG_ID_IEventHandler, 0x49000001, 0x7645, 0x6E65, 0x74, 0x48, 0x61, 0x6E, 0x64, 0x6C, 0x65, 0x72);
 static const UID& ID_IEventHandler = NVG_ID_IEventHandler; ///< "IEventHandler" version 1
 //#define ID_IEventHandler NVG_ID_IEventHandler
 

@@ -92,7 +92,7 @@ NVG_INTERFACE_EXTEND(IDataSource, IUnknown) {
 };
 
 // Interface ID
-NVG_DEFINE_UID(NVG_ID_IDataSource, 0x00000001, 0x4900, 0x6144, 0x74, 0x61, 0x53, 0x6F, 0x75, 0x72, 0x63, 0x65);
+NVG_EXPORT_UID(NVG_ID_IDataSource, 0x00000001, 0x4900, 0x6144, 0x74, 0x61, 0x53, 0x6F, 0x75, 0x72, 0x63, 0x65);
 static const UID& ID_IDataSource = NVG_ID_IDataSource; ///< "IDataSource" version 1
 //#define ID_IDataSource NVG_ID_IDataSource
 

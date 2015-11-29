@@ -42,7 +42,7 @@ NVG_INTERFACE_EXTEND(IDropTarget, IUnknown) {
 };
 
 // Interface ID
-NVG_DEFINE_UID(NVG_ID_IDropTarget, 0x00000122, 0x0000, 0x0000, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46);
+NVG_EXPORT_UID(NVG_ID_IDropTarget, 0x00000122, 0x0000, 0x0000, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46);
 static const UID& ID_IDropTarget = NVG_ID_IDropTarget; ///< 00000122-0000-0000-C000-000000000046
 //#define ID_IDropTarget NVG_ID_IDropTarget
 

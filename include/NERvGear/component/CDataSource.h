@@ -30,7 +30,7 @@ namespace NERvGear {
 /// \declid{Component,NERvGear::ID_CDataSource,CORE_COMMON-4300-6144-7461-536f75726365}
 
 // Component ID
-NVG_DEFINE_UID(NVG_ID_CDataSource, CATALOG::CORE_COMMON, 0x4300, 0x6144, 0x74, 0x61, 0x53, 0x6F, 0x75, 0x72, 0x63, 0x65);
+NVG_EXPORT_UID(NVG_ID_CDataSource, CATALOG::CORE_COMMON, 0x4300, 0x6144, 0x74, 0x61, 0x53, 0x6F, 0x75, 0x72, 0x63, 0x65);
 static const UID& ID_CDataSource = NVG_ID_CDataSource; ///< "CDataSource"
 //#define ID_CDataSource NVG_ID_CDataSource
 

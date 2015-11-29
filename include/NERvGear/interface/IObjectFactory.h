@@ -33,7 +33,7 @@ NVG_INTERFACE_EXTEND(IObjectFactory, IClassFactory) {
 };
 
 // Interface ID
-NVG_DEFINE_UID(NVG_ID_IObjectFactory, 0x4F490001, 0x6A62, 0x6365, 0x74, 0x46, 0x61, 0x63, 0x74, 0x6F, 0x72, 0x79);
+NVG_EXPORT_UID(NVG_ID_IObjectFactory, 0x4F490001, 0x6A62, 0x6365, 0x74, 0x46, 0x61, 0x63, 0x74, 0x6F, 0x72, 0x79);
 static const UID& ID_IObjectFactory = NVG_ID_IObjectFactory; ///< "IObjectFactory" version 1
 //#define ID_IObjectFactory NVG_ID_IObjectFactory
 

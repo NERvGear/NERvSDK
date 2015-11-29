@@ -36,7 +36,7 @@ namespace NERvGear {
 /// \declid{Component,NERvGear::ID_CActionFilter,CORE_SYSTEM-7B76-4FB7-A4A4-F8904ACAB7D1}
 
 // Component ID
-NVG_DEFINE_UID(NVG_ID_CActionFilter, CATALOG::CORE_SYSTEM, 0x7B76, 0x4FB7, 0xA4, 0xA4, 0xF8, 0x90, 0x4A, 0xCA, 0xB7, 0xD1);
+NVG_EXPORT_UID(NVG_ID_CActionFilter, CATALOG::CORE_SYSTEM, 0x7B76, 0x4FB7, 0xA4, 0xA4, 0xF8, 0x90, 0x4A, 0xCA, 0xB7, 0xD1);
 static const UID& ID_CActionFilter = NVG_ID_CActionFilter; ///< CORE_SYSTEM-7B76-4FB7-A4A4-F8904ACAB7D1
 //#define ID_CActionFilter NVG_ID_CActionFilter
 

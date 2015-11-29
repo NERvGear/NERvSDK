@@ -48,7 +48,7 @@ NVG_INTERFACE_EXTEND(IDataObject, IUnknown) {
 };
 
 // Interface ID
-NVG_DEFINE_UID(NVG_ID_IDataObject, 0x0000010E, 0x0000, 0x0000, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46);
+NVG_EXPORT_UID(NVG_ID_IDataObject, 0x0000010E, 0x0000, 0x0000, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46);
 static const UID& ID_IDataObject = NVG_ID_IDataObject; ///< 0000010E-0000-0000-C000-000000000046
 //#define ID_IDataObject NVG_ID_IDataObject
 

@@ -37,7 +37,7 @@ NVG_INTERFACE_EXTEND(IMessageHandler, IUnknown) {
 };
 
 // Interface ID
-NVG_DEFINE_UID(NVG_ID_IMessageHandler, 0x654D4901, 0x7373, 0x6761, 0x65, 0x48, 0x61, 0x6E, 0x64, 0x6C, 0x65, 0x72);
+NVG_EXPORT_UID(NVG_ID_IMessageHandler, 0x654D4901, 0x7373, 0x6761, 0x65, 0x48, 0x61, 0x6E, 0x64, 0x6C, 0x65, 0x72);
 static const UID& ID_IMessageHandler = NVG_ID_IMessageHandler; ///< "IMessageHandler" version 1
 //#define ID_IMessageHandler NVG_ID_IMessageHandler
 

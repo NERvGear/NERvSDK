@@ -34,7 +34,7 @@ namespace NERvGear {
 /// \declid{Component,NERvGear::ID_CPlugin,CORE_PLUGIN-0000-0000-0043-506C7567696E}
 
 // Component ID
-NVG_DEFINE_UID(NVG_ID_CPlugin, CATALOG::CORE_PLUGIN, 0x0000, 0x0000, 0x00, 0x43, 0x50, 0x6C, 0x75, 0x67, 0x69, 0x6E);
+NVG_EXPORT_UID(NVG_ID_CPlugin, CATALOG::CORE_PLUGIN, 0x0000, 0x0000, 0x00, 0x43, 0x50, 0x6C, 0x75, 0x67, 0x69, 0x6E);
 static const UID& ID_CPlugin = NVG_ID_CPlugin; ///< "CPlugin"
 //#define ID_CPlugin NVG_ID_CPlugin
 

@@ -38,6 +38,7 @@ static inline T NERvMax(T a, T b) { return a > b ? a : b; }
 #ifdef __GNUC__     // GCC
 #define NERvSyncIncrement(_PTR) __sync_add_and_fetch_4(_PTR, 1)
 #define NERvSyncDecrement(_PTR) __sync_sub_and_fetch_4(_PTR, 1)
+#define NVG_WEAK_SYMBOL __attribute__((weak))
 #elif _MSC_VER      // MSVC
 extern "C" {
 	long __cdecl _InterlockedIncrement(long volatile *Addend);
@@ -47,6 +48,7 @@ extern "C" {
 #pragma intrinsic(_InterlockedDecrement)
 #define NERvSyncIncrement _InterlockedIncrement
 #define NERvSyncDecrement _InterlockedDecrement
+#define NVG_WEAK_SYMBOL __declspec(selectany)
 #else               // U can U up
 #endif // __GNUC__
 
@@ -97,18 +99,21 @@ extern "C" {
 #define _NVG_EXPORT(_RET) extern "C" _RET __cdecl
 #endif // NVG_FLAG_FORCE_EXPORT
 
-#ifdef _NVG_EXPORT_UID
-#define NVG_DEFINE_UID(_NAME, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A) \
+#ifdef NVG_FLAG_INIT_UID
+#ifdef _NVG_BUILD_RES
+#define NVG_EXPORT_UID(_NAME, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A) \
     extern "C" __declspec(dllexport) const ::NERvGear::UID _NAME = { _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A }
 #else
-#ifdef NVG_FLAG_INIT_UID
-#define NVG_DEFINE_UID(_NAME, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A) \
-    static const ::NERvGear::UID _NAME = { _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A }
+#define NVG_EXPORT_UID(_NAME, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A) \
+    extern const ::NERvGear::UID NVG_WEAK_SYMBOL _NAME = { _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A }
+#endif // _NVG_BUILD_RES
 #else
-#define NVG_DEFINE_UID(_NAME, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A) \
+#define NVG_EXPORT_UID(_NAME, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A) \
     NVG_EXPORT_SYMBOL const ::NERvGear::UID _NAME
 #endif // NVG_FLAG_INIT_UID
-#endif // _NVG_EXPORT_UID
+
+#define NVG_DEFINE_UID(_NAME, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A) \
+    extern const ::NERvGear::UID NVG_WEAK_SYMBOL _NAME = { _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _A }
 
 //! Define NVG_FLAG_IMPORT in your project when importing plug-in DLLs
 //! Define NVG_FLAG_FORCE_EXPORT in your project if you really want to export them explicitly.

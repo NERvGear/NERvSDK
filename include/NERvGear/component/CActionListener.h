@@ -33,7 +33,7 @@ namespace NERvGear {
 /// \declid{Component,NERvGear::ID_CActionListener,CORE_SYSTEM-7B76-4FB7-A4A4-F8904ACAB7D0}
 
 // Component ID
-NVG_DEFINE_UID(NVG_ID_CActionListener, CATALOG::CORE_SYSTEM, 0x7B76, 0x4FB7, 0xA4, 0xA4, 0xF8, 0x90, 0x4A, 0xCA, 0xB7, 0xD0);
+NVG_EXPORT_UID(NVG_ID_CActionListener, CATALOG::CORE_SYSTEM, 0x7B76, 0x4FB7, 0xA4, 0xA4, 0xF8, 0x90, 0x4A, 0xCA, 0xB7, 0xD0);
 static const UID& ID_CActionListener = NVG_ID_CActionListener; ///< CORE_SYSTEM-7B76-4FB7-A4A4-F8904ACAB7D0
 //#define ID_CActionListener NVG_ID_CActionListener
 
