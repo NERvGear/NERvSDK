@@ -125,6 +125,10 @@ template <class T, bool AGGREGATABLE> class ObjectT {};
 
 template <class T>
 class ObjectT<T, true> : public ObjectBaseT<T>, public AggregateT<T>, public IPrivateUnknown {
+
+    // NOTE: silence warning C4355 on constructor initializing AggregateT<T>
+    IUnknown* GetOuter(IUnknown* outer) { return outer ? outer : reinterpret_cast<IUnknown*>(static_cast<IPrivateUnknown*>(this)); }
+
 public:
 
     // NOTE: for debug use, declare functions below as pure virtual if needed
@@ -161,7 +165,7 @@ public:
     }
 
     ObjectT(MODULE* module, IUnknown* outer) :
-        ObjectBaseT<T>(module), AggregateT<T>(outer ? outer : reinterpret_cast<IUnknown*>(static_cast<IPrivateUnknown*>(this))) {}
+        ObjectBaseT<T>(module), AggregateT<T>(GetOuter(outer)) {}
 };
 
 template <class T>
@@ -254,21 +258,24 @@ public:
 template <class T>
 static inline long PrivateCreateInstance(MODULE* refModule, const UID& interfaceID, void** ppvObject, T*& ppt)
 {
-    if (ObjectT<T, false>* object = nvg_new ObjectT<T, false>(refModule)) {
-        long res = object->QueryInterface(interfaceID, ppvObject);
+    long res = E_OUTOFMEMORY;
 
-        if (NVG_SUCC(res)) {
-            ppt = static_cast<T*>(object);
-            return res;
+    if (ObjectT<T, false>* object = nvg_new ObjectT<T, false>(refModule)) {
+        // extra construction
+        if (NVG_SUCC((res = object->OnCreate(refModule, NULL, interfaceID, ppvObject)))) {
+            if (NVG_SUCC((res = object->QueryInterface(interfaceID, ppvObject)))) {
+                ppt = static_cast<T*>(object);
+                return res;
+            }
         }
 
         // failed
-        ppvObject = NULL;
+        *ppvObject = NULL;
         ppt = NULL;
         delete object;
-    } else { return E_OUTOFMEMORY; }
+    }
 
-    return E_FAIL;
+    return res;
 }
 
 template <class T>
@@ -277,23 +284,25 @@ static inline long PrivateCreateInstance(MODULE* refModule, IUnknown* unknownOut
     if (unknownOuter && interfaceID != ID_IUnknown)
         return CLASS_E_NOAGGREGATION;
 
-    if (ObjectT<T, true>* object = nvg_new ObjectT<T, true>(refModule, unknownOuter)) {
-        long res = object->PrivateQueryInterface(interfaceID, ppvObject);
+    long res = E_OUTOFMEMORY;
 
-        if (NVG_SUCC(res)) {
-            ppt = static_cast<T*>(object);
-            return res;
+    if (ObjectT<T, true>* object = nvg_new ObjectT<T, true>(refModule, unknownOuter)) {
+        // extra construction
+        if (NVG_SUCC((res = object->OnCreate(refModule, unknownOuter, interfaceID, ppvObject)))) {
+            if (NVG_SUCC((res = object->PrivateQueryInterface(interfaceID, ppvObject)))) {
+                ppt = static_cast<T*>(object);
+                return res;
+            }
         }
 
         // failed
-        ppvObject = NULL;
+        *ppvObject = NULL;
         ppt = NULL;
         delete object;
-    } else { return E_OUTOFMEMORY; }
+    }
 
-    return E_FAIL;
+    return res;
 }
-
 
 template <class T, bool AGGREGATABLE> class ObjectFactoryT {};
 
@@ -303,8 +312,9 @@ public:
 
     virtual long NVG_METHOD CreateInstanceEx(MODULE* refModule, IUnknown* unknownOuter, const UID& interfaceID, void** ppvObject)
     {
-        T* unused;
-        return PrivateCreateInstance<T>(refModule, unknownOuter, interfaceID, ppvObject, unused);
+        T* object;
+
+        return PrivateCreateInstance<T>(refModule, unknownOuter, interfaceID, ppvObject, object);
     }
 
     virtual const OBJECT_INFO& NVG_METHOD GetInfo() const { return T::STATIC_OBJECT_INFO; }
@@ -318,9 +328,9 @@ public:
         if (unknownOuter)
             return CLASS_E_NOAGGREGATION;
 
-        T* unused;
+        T* object;
 
-        return PrivateCreateInstance<T>(refModule, interfaceID, ppvObject, unused);
+        return PrivateCreateInstance<T>(refModule, interfaceID, ppvObject, object);
     }
 
     virtual const OBJECT_INFO& NVG_METHOD GetInfo() const { return T::STATIC_OBJECT_INFO; }

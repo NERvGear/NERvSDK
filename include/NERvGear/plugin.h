@@ -42,10 +42,12 @@ public:
         return S_OK;
     }
 
+    virtual ~PluginImpl() {}
 };
 
-#define NVG_DECLARE_PLUGIN(_PLUGIN_CLASS)   public: virtual ~_PLUGIN_CLASS() {} \
-                                                    static const ::NERvGear::OBJECT_INFO STATIC_OBJECT_INFO;
+#define NVG_DECLARE_PLUGIN(_PLUGIN_CLASS) public: \
+    long OnCreate(::NERvGear::MODULE* module, ::NERvGear::IUnknown* outer, const ::NERvGear::UID& iid, void** ppv) { return 0; } \
+    static const ::NERvGear::OBJECT_INFO STATIC_OBJECT_INFO;
 
 // NOTE: remove NVG_BEGIN_PLUGIN_INFO from Code Completion parser
 #define NVG_BEGIN_PLUGIN_INFO(_PLUGIN_CLASS) const ::NERvGear::PLUGIN_INFO NVG_PLUGIN_INFO = { {NVS_VER_REV},
@@ -125,6 +127,8 @@ enum FLAG {
     WIDGET  = 0x00000001,
     THEME   = 0x00000002,
 
+    STRICT_MODE = 0x80000000,
+
     MIXED   = 0xFFFFFFFF
 };
 
@@ -147,6 +151,10 @@ struct PLUGIN_INFO {
     const wchar_t* email;
 
     void* reserved;
+};
+
+enum {
+    E_PLUGIN_INCOMPATIBLE = NVG_MAKERESULT(ERROR, 1),
 };
 
 } // NERvGear

@@ -18,8 +18,14 @@
 
 namespace NERvGear {
 
-#define NVG_DECLARE_OBJECT(_OBJECT_CLASS) public: virtual long NVG_METHOD QueryInterface(const ::NERvGear::UID& interfaceID, void** ppvObject); \
-                                                  static const ::NERvGear::OBJECT_INFO STATIC_OBJECT_INFO;
+// Override your own OnCreate() for the object to get extra construction.
+#define NVG_DECLARE_OBJECT_BASE(_OBJECT_CLASS) public: \
+    virtual long NVG_METHOD QueryInterface(const ::NERvGear::UID& interfaceID, void** ppvObject); \
+    static const ::NERvGear::OBJECT_INFO STATIC_OBJECT_INFO;
+
+#define NVG_DECLARE_OBJECT(_OBJECT_CLASS) public: \
+    long OnCreate(::NERvGear::MODULE* module, ::NERvGear::IUnknown* outer, const ::NERvGear::UID& iid, void** ppv) { return 0; } \
+    NVG_DECLARE_OBJECT_BASE(_OBJECT_CLASS)
 
 #define NVG_BEGIN_OBJECT_INFO(_OBJECT_CLASS) const OBJECT_INFO _OBJECT_CLASS::STATIC_OBJECT_INFO = { {NVS_VER_REV},
     #define NVG_DECLARE_OBJECT_CLASSID_UID(_ID) _ID,
