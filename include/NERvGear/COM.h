@@ -173,7 +173,7 @@ static inline unsigned long NERvRelease(T*& object)
                                                           virtual unsigned long NVG_METHOD AddRef() { return _SUPER::AddRef(); } \
                                                           virtual unsigned long NVG_METHOD Release() { return _SUPER::Release(); }
 
-#define NVG_BEGIN_INTERFACE_INFO(_OBJECT_CLASS) long NVG_METHOD _OBJECT_CLASS::QueryInterface(const UID& interfaceID, void** ppvObject) {
+#define NVG_BEGIN_INTERFACE_INFO(_OBJECT_CLASS) long NVG_METHOD _OBJECT_CLASS::QueryInterface(const ::NERvGear::UID& interfaceID, void** ppvObject) {
     #define NVG_DECLARE_INTERFACE(_ID, _INTERFACE, _OBJ) if (_ID == interfaceID) { *ppvObject = static_cast<_INTERFACE*>(_OBJ); (_OBJ)->AddRef(); return S_OK; }
     #define NVG_DECLARE_INTERFACE_EX(_ID, _INNER) if (_ID == interfaceID) { return _INNER->QueryInterface(interfaceID, ppvObject); }
 #define NVG_END_INTERFACE_INFO() *ppvObject = NULL; return E_NOINTERFACE; }
