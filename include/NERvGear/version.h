@@ -50,10 +50,23 @@ static inline bool operator==(const VERSION& a, const VERSION& b)
     return a.major == b.major && a.minor == b.minor && a.subminor == b.subminor && a.reserved == b.reserved;
 }
 
-static inline bool operator!=(const VERSION& a, const VERSION& b)
+static inline bool operator>(const VERSION& a, const VERSION& b)
 {
-    return a.major != b.major || a.minor != b.minor || a.subminor != b.subminor || a.reserved != b.reserved;
+    if (a.major == b.major) {
+        if (a.minor == b.minor) {
+            if (a.subminor == b.subminor)
+                return a.reserved > b.reserved;
+            return a.subminor > b.subminor;
+        }
+        return a.minor > b.minor;
+    }
+    return a.major > b.major;
 }
+
+static inline bool operator <(const VERSION& a, const VERSION& b) { return   b > a;  }
+static inline bool operator>=(const VERSION& a, const VERSION& b) { return !(a < b); }
+static inline bool operator<=(const VERSION& a, const VERSION& b) { return !(a > b); }
+static inline bool operator!=(const VERSION& a, const VERSION& b) { return !(a == b); }
 
 
 /// \ingroup mod_function
