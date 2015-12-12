@@ -147,7 +147,7 @@ static inline size_t NERvCopyString(const wchar_t* src, size_t nCharDst, wchar_t
     if (dst)
         return PrivateCopyString(src, nCharDst, dst);
 
-    return NERvStringLength(src);
+    return NERvStringLength(src) + 1;
 }
 
 /// \brief Copies a double-null-terminated string to the destination buffer.
