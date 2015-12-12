@@ -31,8 +31,8 @@ namespace NERvGear {
 // define NERvSDK version
 #define NVS_VER_MAJOR       0
 #define NVS_VER_MINOR       2
-#define NVS_VER_SUBMINOR    0
-#define NVS_VER_RESERVED    27400 // 10.01 build 1
+#define NVS_VER_SUBMINOR    1
+#define NVS_VER_RESERVED    34500 // 12.11 build 1
 
 #define NVS_VER_REV                  NVS_VER_MAJOR, NVS_VER_MINOR, NVS_VER_SUBMINOR, NVS_VER_RESERVED
 #define NVS_VER_STR  NVG_DOT_VERSION(NVS_VER_MAJOR, NVS_VER_MINOR, NVS_VER_SUBMINOR, NVS_VER_RESERVED)
