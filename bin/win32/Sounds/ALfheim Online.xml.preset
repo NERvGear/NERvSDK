@@ -2,27 +2,29 @@
 <configuration>
   <config catalog="Path">
     <property key="AlertPopup" value=""/>
+    <property key="WarnPopup" value=""/>
     <property key="SystemNotify" value=""/>
-    <property key="MessageNotify" value=""/>
-    <property key="ButtonClick" value=""/>
+    <property key="MessageNotify" value="./Sounds/Notify.ALO.Message.wav"/>
+    <property key="ButtonClick" value="./Sounds/Feedback.ALO.Click.wav"/>
     <property key="PanelPopup" value=""/>
     <property key="MenuPopup" value=""/>
-    <property key="MessageDismiss" value=""/>
-    <property key="MessagePopup" value=""/>
-    <property key="LauncherDismiss" value=""/>
-    <property key="LauncherPopup" value="./Sounds/Popup.SAO.Launcher.wav"/>
+    <property key="MessageDismiss" value="./Sounds/Dismiss.ALO.Message.wav"/>
+    <property key="MessagePopup" value="./Sounds/Popup.ALO.Message.wav"/>
+    <property key="LauncherDismiss" value="./Sounds/Dismiss.ALO.Launcher.wav"/>
+    <property key="LauncherPopup" value="./Sounds/Popup.ALO.Launcher.wav"/>
     <property key="WelcomePopup" value="./Sounds/Popup.ALO.Welcome.wav"/>
     <property key="AppStart" value="./Sounds/Startup.ALO.AmuSphere.wav"/>
-    <property key="LinkStart" value="./Sounds/LinkStart.ALO.Asuna.wav"/>
+    <property key="LinkStart" value="./Sounds/LinkStart.ALO.Leafa.wav"/>
   </config>
-  <config catalog="List">
+  <config catalog="State">
     <property key="AlertPopup" value="1"/>
+    <property key="WarnPopup" value="1"/>
     <property key="SystemNotify" value="1"/>
     <property key="MessageNotify" value="1"/>
     <property key="ButtonClick" value="1"/>
     <property key="PanelPopup" value="1"/>
-    <property key="MenuPopup" value="0"/>
-    <property key="MessageDismiss" value="0"/>
+    <property key="MenuPopup" value="1"/>
+    <property key="MessageDismiss" value="1"/>
     <property key="MessagePopup" value="1"/>
     <property key="LauncherDismiss" value="1"/>
     <property key="LauncherPopup" value="1"/>
