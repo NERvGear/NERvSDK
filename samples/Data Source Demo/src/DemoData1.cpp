@@ -104,7 +104,7 @@ unsigned DemoData1::GetValueCount()
 size_t DemoData1::GetValue(unsigned index, size_t nbyte, void* buf)
 {
     switch (index) {
-	case STR_DEMO_VALUE_1: return NERvCopyString(m_cur1.c_str(), nbyte >> 1, static_cast<wchar_t*>(buf));
+	case STR_DEMO_VALUE_1: return NERvCopyString(m_cur1.c_str(), nbyte / 2, static_cast<wchar_t*>(buf)) * 2;
 	case U32_DEMO_VALUE_2:
 		if (buf)
 			*reinterpret_cast<unsigned*>(buf) = m_cur2;
