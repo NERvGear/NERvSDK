@@ -20,7 +20,7 @@ There're many ways that you can improve the SAO Utilities Project:
 2. Make patches to enhance or fix bugs for the NERvSDK.
 3. Join our [NERvDN](https://github.com/NERvGear) team, and contribute to the [NERvHub](https://github.com/NERvGear/NERvHub)!
 
-## Copyright
+## Contacts
 
 The SAO Utilities Project
 
